@@ -1,9 +1,10 @@
-import { Tabs } from 'expo-router';
-import React from 'react';
+import { Tabs } from "expo-router";
+import React from "react";
 
-import { TabBarIcon } from '@/components/navigation/TabBarIcon';
-import { Colors } from '@/constants/Colors';
-import { useColorScheme } from '@/hooks/useColorScheme';
+import { TabBarIcon } from "@/components/navigation/TabBarIcon";
+import { Colors } from "@/constants/Colors";
+import { useColorScheme } from "@/hooks/useColorScheme";
+import { Image } from "react-native";
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
@@ -11,24 +12,29 @@ export default function TabLayout() {
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-        headerShown: false,
-      }}>
+        tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
+        headerShown: true,
+        headerTitleAlign: "center",
+      }}
+    >
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Home',
-          tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'home' : 'home-outline'} color={color} />
+          headerTitle: () => (
+            <Image
+              source={require("@/assets/images/f1_logo.png")}
+              style={{ width: 90, resizeMode: "contain" }}
+            />
           ),
-        }}
-      />
-      <Tabs.Screen
-        name="explore"
-        options={{
-          title: 'Explore',
+          headerRight: () => null,
+          headerStyle: {
+            backgroundColor: "#e10500",
+          },
           tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'code-slash' : 'code-slash-outline'} color={color} />
+            <TabBarIcon
+              name={focused ? "home" : "home-outline"}
+              color={color}
+            />
           ),
         }}
       />

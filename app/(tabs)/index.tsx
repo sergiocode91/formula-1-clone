@@ -1,70 +1,71 @@
-import { Image, StyleSheet, Platform } from 'react-native';
+import CardHero from "@/components/CardHero";
+import CardLite from "@/components/CardLite";
+import { ScrollView, View } from "react-native";
 
-import { HelloWave } from '@/components/HelloWave';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
+const data = [
+  {
+    image:
+      "https://media.formula1.com/image/upload/f_auto,c_limit,q_auto,w_1320/fom-website/2024/Features/steiner-ricciardo-3jpg",
+    category: "Feature",
+    description:
+      "THE GUENTHER STEINER COLUMN: RB decision is tough on Ricciardo – but he knows in F1 you have to perform to survive",
+    isHero: true,
+  },
+  {
+    image:
+      "https://media.formula1.com/image/upload/f_auto,c_limit,w_630,q_auto/f_auto/q_auto/fom-website/2024/Features/emotional-f1-retirements-header-image",
+    category: "Feature",
+    description:
+      "From Massa’s Sao Paulo tearjerker to Alonso’s Abu Dhabi donuts – 6 emotional F1 driver departures",
+  },
+  {
+    image:
+      "https://media.formula1.com/image/upload/f_auto,c_limit,w_630,q_auto/t_16by9North/f_auto/q_auto/fom-website/2024/Miscellaneous/GettyImages-2170478236",
+    category: "News",
+    description:
+      "Newey explains why he opted for 'old school' Aston Martin, rather than joining Hamilton in 2025 move to Ferrari",
+  },
+  {
+    image:
+      "https://media.formula1.com/image/upload/f_auto,c_limit,w_630,q_auto/f_auto/q_auto/fom-website/2024/Miscellaneous/liuzzi-antonelli-comp-header",
+    category: "News",
+    description:
+      "‘We missed an Italian on the F1 grid’ – Ex-F1 driver Liuzzi tips ‘amazing’ Antonelli to shine at Mercedes",
+  },
+  {
+    image:
+      "https://media.formula1.com/image/upload/f_auto,c_limit,w_630,q_auto/t_16by9Centre/f_auto/q_auto/fom-website/2024/F1%20Explains/F1Ex%20Stoffel%20Quickfire%2016x9",
+    category: "Podcast",
+    description:
+      "F1 EXPLAINS: Overtaking, braking and qualifying – Aston Martin's Stoffel Vandoorne answers your questions",
+  },
+];
 
 export default function HomeScreen() {
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({ ios: 'cmd + d', android: 'cmd + m' })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-        <ThemedText>
-          Tap the Explore tab to learn more about what's included in this starter app.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          When you're ready, run{' '}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
+    <ScrollView style={{ flex: 1, backgroundColor: "#fff" }}>
+      <View style={{ paddingRight: 16 }}>
+        {data
+          .filter((item) => item.isHero)
+          .map((item, index) => (
+            <CardHero
+              key={index}
+              image={item.image}
+              category={item.category}
+              description={item.description}
+            />
+          ))}
+        {data
+          .filter((item) => !item.isHero)
+          .map((item, index) => (
+            <CardLite
+              key={index}
+              image={item.image}
+              category={item.category}
+              description={item.description}
+            />
+          ))}
+      </View>
+    </ScrollView>
   );
 }
-
-const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-  },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
-  },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
-  },
-});
