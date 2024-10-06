@@ -20,6 +20,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="index"
         options={{
+          title: "Latest",
           headerTitle: () => (
             <Image
               source={require("@/assets/images/f1_logo.png")}
